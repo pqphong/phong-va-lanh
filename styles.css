@@ -260,7 +260,6 @@ h1 { font-family: var(--font-display); font-size: 54px; font-weight: 400; line-h
 
 .icon-button, .love-button, .share-button, .copy-button { transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease; }
 .love-button .icon { transition: transform 240ms ease; }
-:root[data-motion="on"] .timeline-photo .gallery-viewer { animation: photo-float 8s ease-in-out infinite; }
 :root[data-motion="on"] .footer-heart { animation: heartbeat 5.5s ease-in-out infinite; transform-origin: center; }
 :root[data-motion="on"] .timeline-today .timeline-dot::after { content: ""; position: absolute; inset: -5px; border: 1px solid var(--accent); border-radius: 50%; animation: today-ripple 4.5s ease-out infinite; }
 :root[data-motion="on"] .share-dialog[open]::backdrop { animation: backdrop-enter 280ms ease-out; }
@@ -270,10 +269,6 @@ h1 { font-family: var(--font-display); font-size: 54px; font-weight: 400; line-h
 :root[data-motion="off"] *,
 :root[data-motion="off"] *::before,
 :root[data-motion="off"] *::after { animation: none !important; transition: none !important; }
-@keyframes photo-float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -3px; }
-}
 @keyframes heartbeat {
   0%, 12%, 24%, 100% { scale: 1; }
   6% { scale: 1.16; }
