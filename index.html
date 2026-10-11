@@ -1,111 +1,155 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" data-layout="timeline" data-theme="light" data-motion="off">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Một góc nhỏ của Quốc Phong và Ngọc Lành. Đếm từng ngày bên nhau từ 14 tháng 02 năm 2022.">
-  <meta name="theme-color" content="#f7f4fa">
+  <meta name="description" content="Dòng thời gian tình yêu của Quốc Phong và Ngọc Lành. Giữ lại từng khoảnh khắc, đếm từng ngày bên nhau từ 14/02/2022.">
+  <meta name="theme-color" content="#fff4f6">
   <title>Phong & Lành</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23f7f4fa'/%3E%3Cpath d='M32 49 12 30C-2 15 20 3 32 19 44 3 66 15 52 30Z' fill='%23ae355b'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23fff4f6'/%3E%3Cpath d='M32 49 12 30C-2 15 20 3 32 19 44 3 66 15 52 30Z' fill='%23b6386a'/%3E%3C/svg%3E">
+  <script>
+    try {
+      const theme = localStorage.getItem("phong-lanh-layout-theme");
+      if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+    } catch { /* The keepsake also works without browser storage. */ }
+  </script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gallery.css">
+  <link rel="stylesheet" href="hearts.css">
+  <script src="gallery.js" defer></script>
+  <script src="hearts.js" defer></script>
   <script src="counter.js" defer></script>
   <script src="app.js" defer></script>
+  <script src="music.js" defer></script>
 </head>
 <body>
   <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
     <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
     <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 0 1 11.2 3a9 9 0 1 0 9.8 9.8Z"/></symbol>
-    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
-    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 5h2m4 0h2"/></symbol>
+    <symbol id="icon-letter" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7m-18 12 6-6m12 6-6-6"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18"/></symbol>
     <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/></symbol>
-    <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
     <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7V5Z"/></symbol>
   </svg>
 
-  <div class="page-shell">
+  <div class="preview-shell">
     <header class="site-header">
-      <a class="wordmark" href="#chung-minh" aria-label="Hai đứa, trở về đầu trang">hai đứa<span>.</span></a>
+      <a class="wordmark" href="#layout-stage" aria-label="Hai đứa, trở về đầu câu chuyện">hai đứa<span>.</span></a>
       <div class="header-actions">
-        <span class="header-note">một câu chuyện, hai người</span>
-        <button class="icon-button theme-button" id="theme-toggle" type="button" aria-label="Đổi giao diện sáng hoặc tối">
+        <button class="icon-button" id="motion-toggle" type="button" aria-label="Tạm dừng hiệu ứng chuyển động" title="Tạm dừng hiệu ứng chuyển động" disabled>
+          <span id="motion-pause" aria-hidden="true"><svg class="icon"><use href="#icon-pause"/></svg></span>
+          <span id="motion-play" aria-hidden="true" hidden><svg class="icon"><use href="#icon-play"/></svg></span>
+        </button>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Chuyển sang giao diện tối" disabled>
           <span id="theme-moon" aria-hidden="true"><svg class="icon"><use href="#icon-moon"/></svg></span>
           <span id="theme-sun" aria-hidden="true" hidden><svg class="icon"><use href="#icon-sun"/></svg></span>
         </button>
       </div>
     </header>
 
-    <main id="chung-minh">
-      <section class="love-layout" aria-labelledby="couple-title">
-        <div class="our-story">
-          <p class="eyebrow"><span class="little-heart" aria-hidden="true">♥</span> CHUYỆN CỦA CHÚNG MÌNH</p>
+    <section class="music-player" aria-label="Nhạc nền lãng mạn" data-state="paused">
+      <div class="music-track"><span class="music-note" aria-hidden="true">♫</span><div><strong>Một ngày có nhau</strong><span>Giai điệu không lời · âm sắc piano tổng hợp</span></div></div>
+      <div class="music-controls">
+        <button id="music-toggle" class="music-button" type="button" aria-label="Bật nhạc nền"><svg class="icon" aria-hidden="true"><use id="music-icon" href="#icon-play"/></svg><span id="music-label">Bật nhạc</span></button>
+        <label class="music-volume" for="music-volume">Âm lượng <input id="music-volume" type="range" min="0" max="100" value="30" step="1"><output id="music-volume-value" for="music-volume">30%</output></label>
+      </div>
+      <p id="music-status" class="music-status" role="status">Bấm bật để nghe một chút dịu dàng. Nhạc không tự phát.</p>
+    </section>
+
+    <main id="layout-stage" tabindex="-1">
+      <section class="timeline-layout" aria-labelledby="couple-title">
+        <div class="timeline-portrait">
+          <p class="eyebrow">NHỮNG NGÀY CỦA CHÚNG MÌNH</p>
           <h1 id="couple-title">Quốc Phong<br><span class="ampersand">&</span> Ngọc Lành</h1>
-          <p class="story-copy">Giữa rất nhiều người, thật may vì<br class="desktop-break"> chúng mình đã tìm thấy nhau.</p>
-
-          <figure class="memory-art">
-            <canvas id="heart-art" width="900" height="540" aria-hidden="true"></canvas>
-            <div class="couple-photo">
-              <img src="1791711397844_1989003034110918460_338685602728036629_172456c8301cef08dfb19587923c0a67.jpg" alt="Ảnh hai bạn Quốc Phong và Ngọc Lành bên nhau" width="2048" height="1536" decoding="async" fetchpriority="high">
-              <span class="photo-caption">mình & người thương</span>
+          <figure class="timeline-photo">
+            <div data-part="photo">
+              <div class="photo-gallery" data-photo-gallery role="region" aria-roledescription="trình chiếu" aria-label="Album ảnh của hai đứa">
+                <div class="gallery-viewer">
+                  <img class="couple-image" data-gallery-image src="photos/couple.jpg" alt="Quốc Phong và Ngọc Lành bên nhau" width="2048" height="1536" decoding="async" fetchpriority="high">
+                  <p class="gallery-empty" hidden><span aria-hidden="true">♡</span>Thêm ảnh vào thư mục photos để mở album của hai đứa.</p>
+                </div>
+                <div class="gallery-panel" hidden></div>
+              </div>
             </div>
-            <div class="date-note"><span>ngày chúng mình bắt đầu</span><strong>14.02.2022</strong><i>một ngày Valentine</i></div>
-            <figcaption class="art-caption">you, me & all the days in between.</figcaption>
+            <figcaption class="handwritten">hai đứa, trên cùng một hành trình.</figcaption>
           </figure>
-        </div>
-
-        <div class="counter-card">
-          <div class="card-topline"><span class="eyebrow">ĐÃ BÊN NHAU</span><span class="together-badge"><span aria-hidden="true">♥</span> Phong & Lành</span></div>
-          <div class="hero-count">
-            <span class="total-days" id="total-days">…</span>
-            <h2>ngày yêu nhau</h2>
+          <p class="story-copy">Không cần đi thật nhanh. <br>Chỉ cần qua những ngày tháng, <br>vẫn đi cùng nhau.</p>
+          <div data-part="actions">
+            <div class="love-actions">
+              <button class="love-button" id="send-love" type="button" data-action="celebrate" disabled><svg class="icon" aria-hidden="true"><use href="#icon-heart"/></svg><span data-love-label>Thả một chút yêu</span></button>
+              <button class="share-button" id="open-share" type="button" data-action="share" disabled><svg class="icon" aria-hidden="true"><use href="#icon-letter"/></svg>Gửi lời thương</button>
+            </div>
           </div>
-          <p class="calendar-duration" id="calendar-duration">Từ ngày 14 tháng 02 năm 2022</p>
-          <div class="time-divider" aria-hidden="true"><span></span><svg class="icon"><use href="#icon-heart"/></svg><span></span></div>
-          <div class="clock" role="group" aria-label="Giờ, phút và giây trong ngày yêu nhau hiện tại">
-            <div class="clock-unit"><span class="clock-value" id="hours">--</span><span class="clock-label">giờ</span></div>
-            <span class="clock-colon" aria-hidden="true">:</span>
-            <div class="clock-unit"><span class="clock-value" id="minutes">--</span><span class="clock-label">phút</span></div>
-            <span class="clock-colon" aria-hidden="true">:</span>
-            <div class="clock-unit"><span class="clock-value" id="seconds">--</span><span class="clock-label">giây</span></div>
-          </div>
-          <p class="live-note"><span class="live-dot" aria-hidden="true"></span>Và câu chuyện vẫn đang viết tiếp…</p>
-          <button class="love-button" id="send-love" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-heart"/></svg>Thả một chút yêu</button>
-          <p class="counter-footnote">Tính từ 00:00 ngày 14/02/2022, theo giờ Việt Nam.</p>
+        </div>
+        <div class="timeline-story">
+          <ol class="love-timeline">
+            <li class="timeline-start"><span class="timeline-dot" aria-hidden="true"><svg class="icon"><use href="#icon-heart"/></svg></span><span class="event-label">NGÀY BẮT ĐẦU</span><time class="start-date" datetime="2022-02-14">14.02.2022</time><h2>Một ngày Valentine.</h2><p>Từ ngày ấy, có thêm “chúng mình”.</p></li>
+            <li class="timeline-today">
+              <span class="timeline-dot" aria-hidden="true"></span><span class="event-label">HÔM NAY <time id="today-date"></time></span>
+              <h2>Thêm một ngày có nhau.</h2>
+              <div data-part="counter">
+                <div class="relationship-counter" role="group" aria-label="Thời gian Quốc Phong và Ngọc Lành đã bên nhau">
+                  <div class="counter-heading">
+                    <div class="day-count"><span class="day-value" id="total-days">…</span><span class="day-unit">ngày <em>bên nhau</em></span></div>
+                    <svg class="counter-doodle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 96" aria-hidden="true" focusable="false">
+                      <path class="doodle-trail" d="M18 78c10 8 24 9 36 3s16-3 23-1 20 2 31-8"/>
+                      <path class="doodle-sparkle" d="m15 10 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z"/>
+                      <path class="doodle-sparkle" d="m109 17 1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5Z"/>
+                      <path class="doodle-trail" d="M116 49v6m-3-3h6"/>
+                      <g transform="rotate(-12 42 48)">
+                        <path class="doodle-heart-blush" d="M42 73C36 68 16 55 16 40c0-14 16-18 26-6 10-12 26-8 26 6 0 15-20 28-26 33Z"/>
+                        <g class="doodle-cheek-blush"><ellipse cx="28" cy="49" rx="3.5" ry="2"/><ellipse cx="53" cy="49" rx="3.5" ry="2"/></g>
+                        <g class="doodle-eyes"><circle cx="33" cy="43" r="1.7"/><circle cx="48" cy="43" r="1.7"/></g>
+                        <path class="doodle-smile" d="M37 48q3.5 5 7 0"/>
+                      </g>
+                      <g transform="rotate(12 85 52)">
+                        <path class="doodle-heart-lavender" d="M85 75C80 70 60 60 60 46c0-13 15-17 25-6 10-12 24-7 24 6 0 14-18 26-24 29Z"/>
+                        <g class="doodle-cheek-lavender"><ellipse cx="72" cy="55" rx="3.5" ry="2"/><ellipse cx="97" cy="55" rx="3.5" ry="2"/></g>
+                        <g class="doodle-eyes"><circle cx="77" cy="49" r="1.7"/><circle cx="92" cy="49" r="1.7"/></g>
+                        <path class="doodle-smile" d="M81 54q3.5 5 7 0"/>
+                      </g>
+                      <path class="doodle-smile" d="M54 61q9 9 18 0"/>
+                    </svg>
+                  </div>
+                  <p class="calendar-duration" id="calendar-duration">Từ ngày 14/02/2022</p>
+                  <div class="clock" role="group" aria-label="Giờ, phút và giây trong ngày yêu nhau hiện tại"><span class="clock-unit"><strong id="hours">--</strong><span>giờ</span></span><span class="clock-colon" aria-hidden="true">:</span><span class="clock-unit"><strong id="minutes">--</strong><span>phút</span></span><span class="clock-colon" aria-hidden="true">:</span><span class="clock-unit"><strong id="seconds">--</strong><span>giây</span></span></div>
+                  <p class="counter-footnote">Từ 00:00 ngày 14/02/2022 · giờ Việt Nam</p>
+                </div>
+              </div>
+            </li>
+            <li data-timeline-event="monthly">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <div data-part="monthly"><article class="upcoming-date"><span class="event-icon" aria-hidden="true"><svg class="icon"><use href="#icon-calendar"/></svg></span><div class="event-content"><p class="event-label">Kỷ niệm tháng</p><h3 id="monthly-title">Thêm một tháng bên nhau</h3><time id="monthly-date">Ngày 14 hằng tháng</time></div><span class="countdown" id="monthly-countdown">…</span></article></div>
+            </li>
+            <li data-timeline-event="anniversary">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <div data-part="anniversary"><article class="upcoming-date"><span class="event-icon" aria-hidden="true"><svg class="icon"><use href="#icon-calendar"/></svg></span><div class="event-content"><p class="event-label">Kỷ niệm tiếp theo</p><h3 id="anniversary-title">Ngày của chúng mình</h3><time id="anniversary-date">14/02 hằng năm</time></div><span class="countdown" id="anniversary-countdown">…</span></article></div>
+            </li>
+            <li data-timeline-event="milestone">
+              <span class="timeline-dot" aria-hidden="true"></span>
+              <div data-part="milestone"><article class="upcoming-date"><span class="event-icon" aria-hidden="true"><svg class="icon"><use href="#icon-sparkle"/></svg></span><div class="event-content"><p class="event-label">Cột mốc sắp tới</p><h3 id="milestone-title">Thêm những ngày bên nhau</h3><time id="milestone-date">Mỗi 500 ngày, thêm một dấu mốc thương.</time></div><span class="countdown" id="milestone-countdown">…</span></article></div>
+            </li>
+          </ol>
+          <p class="timeline-epilogue handwritten">và câu chuyện vẫn đang viết tiếp…</p>
         </div>
       </section>
-
-      <section class="milestones" aria-labelledby="milestones-title">
-        <div class="milestones-intro">
-          <span class="eyebrow">NHỮNG ĐIỀU ĐỂ MONG CHỜ</span>
-          <h2 id="milestones-title">Còn nhiều ngày thương.</h2>
-        </div>
-        <div class="milestone-grid">
-          <article class="milestone anniversary">
-            <div class="milestone-icon"><svg class="icon" aria-hidden="true"><use href="#icon-calendar"/></svg></div>
-            <div class="milestone-content"><p class="milestone-label">Kỷ niệm tiếp theo</p><h3 id="anniversary-title">Ngày của chúng mình</h3><time id="anniversary-date">14 tháng 02</time></div>
-            <span class="countdown-badge" id="anniversary-countdown">…</span>
-          </article>
-          <article class="milestone round-days">
-            <div class="milestone-icon"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"/></svg></div>
-            <div class="milestone-content"><p class="milestone-label">Cột mốc sắp tới</p><h3 id="milestone-title">Thêm những ngày bên nhau</h3><time id="milestone-date">Đang tính ngày hẹn…</time></div>
-            <span class="countdown-badge" id="milestone-countdown">…</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="closing-note" aria-label="Lời nhắn yêu thương">
-        <p>Không cần một câu chuyện hoàn hảo.<br>Chỉ cần trong câu chuyện ấy, <em>có chúng mình.</em></p>
-        <button class="share-button" id="open-share" type="button">Gửi một chút yêu thương<svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
-      </section>
-      <noscript><p class="noscript-note">Bật JavaScript trong trình duyệt để xem bộ đếm tự cập nhật. Ngày bắt đầu của Quốc Phong & Ngọc Lành là 14/02/2022.</p></noscript>
+      <noscript>
+        <style>.header-actions, .music-player, .love-actions, .timeline-today .counter-heading, .clock, .countdown { display: none; }</style>
+        <p class="noscript-note">Quốc Phong & Ngọc Lành đã bên nhau từ 14/02/2022. Bạn vẫn có thể xem ảnh và câu chuyện; bật JavaScript để xem album, bộ đếm thời gian, những ngày hẹn tiếp theo và nghe nhạc nền.</p>
+      </noscript>
     </main>
 
     <footer class="site-footer"><span>Quốc Phong <span class="footer-heart" aria-hidden="true">♥</span> Ngọc Lành</span><span>từ 14.02.2022 · và còn mãi</span></footer>
   </div>
 
-  <canvas class="celebration-canvas" id="celebration" aria-hidden="true"></canvas>
+  <canvas class="celebration-canvas" id="celebration" aria-hidden="true" hidden></canvas>
   <p class="sr-only" id="celebration-status" role="status"></p>
+  <p class="sr-only" id="motion-status" role="status"></p>
   <dialog class="share-dialog" id="share-dialog" aria-labelledby="share-title">
     <div class="dialog-heading"><h2 id="share-title">Một chút yêu thương</h2><button class="icon-button" id="close-share" type="button" aria-label="Đóng lời nhắn"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
     <p class="dialog-copy">Một lời nhắn nhỏ, dành cho người đặc biệt.</p>

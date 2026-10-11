@@ -1,0 +1,31 @@
+:root { --heart-travel: calc(-100vh - 100px); }
+@supports (height: 100dvh) {
+  :root { --heart-travel: calc(-100dvh - 100px); }
+}
+body { isolation: isolate; }
+.floating-hearts { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.floating-heart { position: absolute; bottom: -50px; left: var(--heart-x); width: var(--heart-size); height: var(--heart-size); color: var(--accent); opacity: 0; }
+.floating-heart:nth-child(even) { color: var(--secondary); }
+.floating-heart svg { display: block; width: 100%; height: 100%; fill: currentColor; transform-origin: center; }
+.floating-heart:nth-child(3n) svg { fill: none; stroke: currentColor; stroke-width: 1.4; }
+.floating-hearts[data-enabled="true"] .floating-heart { animation: heart-rise var(--heart-duration) linear var(--heart-delay) infinite; }
+.floating-hearts[data-enabled="true"] .floating-heart svg { animation: heart-sway var(--heart-sway) ease-in-out var(--heart-delay) infinite; }
+.floating-hearts[data-enabled="false"] { display: none; }
+.floating-hearts[data-paused="true"] *, .floating-hearts[data-paused="true"] *::before, .floating-hearts[data-paused="true"] *::after { animation-play-state: paused !important; }
+
+@keyframes heart-rise {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10%, 78% { opacity: var(--heart-opacity); }
+  100% { transform: translate3d(0, var(--heart-travel), 0); opacity: 0; }
+}
+@keyframes heart-sway {
+  0%, 100% { transform: translateX(0) rotate(calc(0deg - var(--heart-tilt))); }
+  50% { transform: translateX(var(--heart-drift)) rotate(var(--heart-tilt)); }
+}
+@media (max-width: 680px) {
+  .floating-heart:nth-child(n+23) { display: none; }
+  .floating-heart { width: calc(var(--heart-size) * 0.8); height: calc(var(--heart-size) * 0.8); }
+}
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .floating-hearts { display: none; }
+}

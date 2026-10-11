@@ -59,6 +59,15 @@
       anniversary = { ...anniversary, year: anniversary.year + 1 };
     }
 
+    // Keep the next monthly date through its entire Vietnamese calendar day.
+    // Month one is the first recurrence; before the start, today stays clamped above.
+    let anniversaryMonths = Math.max(1, (today.year - start.year) * 12 + today.month - start.month);
+    let monthlyAnniversary = addMonths(start, anniversaryMonths);
+    if (dayNumber(monthlyAnniversary) < dayNumber(today)) {
+      anniversaryMonths += 1;
+      monthlyAnniversary = addMonths(start, anniversaryMonths);
+    }
+
     const nextMilestoneDays = (Math.floor(totalDays / 500) + 1) * 500;
     const nextMilestone = dateInVietnam(startTimestamp + nextMilestoneDays * DAY_MS);
 
@@ -73,6 +82,11 @@
         years: anniversary.year - start.year,
         date: isoDate(anniversary),
         daysUntil: Math.max(0, dayNumber(anniversary) - dayNumber(today)),
+      },
+      monthlyAnniversary: {
+        months: anniversaryMonths,
+        date: isoDate(monthlyAnniversary),
+        daysUntil: Math.max(0, dayNumber(monthlyAnniversary) - dayNumber(today)),
       },
       milestone: {
         days: nextMilestoneDays,
