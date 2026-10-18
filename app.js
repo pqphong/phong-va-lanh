@@ -9,6 +9,7 @@
   const byId = (id) => document.getElementById(id);
   const stage = byId("layout-stage");
   const timeline = stage.querySelector(".love-timeline");
+  const mobileTotalDays = stage.querySelector("[data-mobile-total-days]");
   const fields = Object.fromEntries([...stage.querySelectorAll("[id]")].map((element) => [element.id, element]));
   const sceneAnimations = new Map();
   const numbers = new Intl.NumberFormat("vi-VN");
@@ -145,7 +146,9 @@
     const now = new Date();
     const snapshot = getSnapshot(now);
     const { years, months, days } = snapshot.duration;
-    setText(fields["total-days"], numbers.format(snapshot.totalDays));
+    const totalDays = numbers.format(snapshot.totalDays);
+    setText(fields["total-days"], totalDays);
+    setText(mobileTotalDays, totalDays);
     setText(fields["calendar-duration"], `${years} năm · ${months} tháng · ${days} ngày`);
     for (const unit of ["hours", "minutes", "seconds"]) {
       setText(fields[unit], String(snapshot[unit]).padStart(2, "0"));

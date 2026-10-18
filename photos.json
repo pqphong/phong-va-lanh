@@ -1,19 +1,477 @@
 {
   "photos": [
     {
-      "src": "photos/couple.jpg"
+      "src": "photos/couple.jpg",
+      "alt": "Quốc Phong và Ngọc Lành chụp ảnh cùng nhau trước một công trình nhiều màu sắc vào buổi tối.",
+      "caption": "Hai đứa trong một khung hình đầy ánh sáng.",
+      "width": 2048,
+      "height": 1536,
+      "variants": [
+        {
+          "src": "photo-variants/5e8ef31526e9d21a-96.webp",
+          "width": 96,
+          "height": 72,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/5e8ef31526e9d21a-320.webp",
+          "width": 320,
+          "height": 240,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/5e8ef31526e9d21a-640.webp",
+          "width": 640,
+          "height": 480,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/5e8ef31526e9d21a-960.webp",
+          "width": 960,
+          "height": 720,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/5e8ef31526e9d21a-1600.webp",
+          "width": 1600,
+          "height": 1200,
+          "type": "image/webp"
+        }
+      ]
     },
     {
-      "src": "photos/368069696_689975769914003_7402499234028940142_n.jpg"
+      "src": "photos/368069696_689975769914003_7402499234028940142_n.jpg",
+      "alt": "Ngọc Lành mặc áo dài đỏ đứng bên cổng hoa màu hồng.",
+      "caption": "Một tà áo đỏ giữa những sắc hoa dịu dàng.",
+      "width": 1536,
+      "height": 2048,
+      "variants": [
+        {
+          "src": "photo-variants/0bb22a1545c0a7e5-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/0bb22a1545c0a7e5-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/0bb22a1545c0a7e5-640.webp",
+          "width": 640,
+          "height": 853,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/0bb22a1545c0a7e5-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        }
+      ]
     },
     {
-      "src": "photos/z3519046914445_2703db441c1afeb9bf84dd614ce2a78a.jpg"
+      "src": "photos/IMG_2657.jpeg",
+      "width": 4032,
+      "height": 3024,
+      "variants": [
+        {
+          "src": "photo-variants/f779512860bc4877-96.webp",
+          "width": 96,
+          "height": 72,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f779512860bc4877-320.webp",
+          "width": 320,
+          "height": 240,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f779512860bc4877-640.webp",
+          "width": 640,
+          "height": 480,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f779512860bc4877-960.webp",
+          "width": 960,
+          "height": 720,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f779512860bc4877-1600.webp",
+          "width": 1600,
+          "height": 1200,
+          "type": "image/webp"
+        }
+      ]
     },
     {
-      "src": "photos/z3917787500353_00fa72c4bfa650984525af6496bd65f8.jpg"
+      "src": "photos/z3503828078881_7d996bdb7c94b54be45a1483bdef2cdf.jpg",
+      "width": 960,
+      "height": 1280,
+      "variants": [
+        {
+          "src": "photo-variants/d75a768d25363b7e-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/d75a768d25363b7e-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/d75a768d25363b7e-640.webp",
+          "width": 640,
+          "height": 853,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/d75a768d25363b7e-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        }
+      ]
     },
     {
-      "src": "photos/z6219576654138_94d63903f4a99a0bbfc583dcc4406b1d.jpg"
+      "src": "photos/z3503828084025_98cd889e616035bed3d92626755d2e06.jpg",
+      "width": 1536,
+      "height": 2048,
+      "variants": [
+        {
+          "src": "photo-variants/c5b9cc87b0c389ea-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/c5b9cc87b0c389ea-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/c5b9cc87b0c389ea-640.webp",
+          "width": 640,
+          "height": 853,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/c5b9cc87b0c389ea-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/c5b9cc87b0c389ea-1536.webp",
+          "width": 1536,
+          "height": 2048,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z3519046914445_2703db441c1afeb9bf84dd614ce2a78a.jpg",
+      "alt": "Chân dung Ngọc Lành trong trang phục màu đen.",
+      "caption": "Một nụ cười thật gần.",
+      "width": 956,
+      "height": 959,
+      "variants": [
+        {
+          "src": "photo-variants/257e5ee400d1936d-96.webp",
+          "width": 96,
+          "height": 96,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/257e5ee400d1936d-320.webp",
+          "width": 320,
+          "height": 321,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/257e5ee400d1936d-640.webp",
+          "width": 640,
+          "height": 642,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/257e5ee400d1936d-956.webp",
+          "width": 956,
+          "height": 959,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z3807404579634_d244cf2ea52b3da5d625be76b8ef32d1.jpg",
+      "width": 1706,
+      "height": 2560,
+      "variants": [
+        {
+          "src": "photo-variants/65f5ea659ca49cfb-96.webp",
+          "width": 96,
+          "height": 144,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/65f5ea659ca49cfb-320.webp",
+          "width": 320,
+          "height": 481,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/65f5ea659ca49cfb-640.webp",
+          "width": 640,
+          "height": 960,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/65f5ea659ca49cfb-960.webp",
+          "width": 960,
+          "height": 1441,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/65f5ea659ca49cfb-1600.webp",
+          "width": 1600,
+          "height": 2401,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z3917787500353_00fa72c4bfa650984525af6496bd65f8.jpg",
+      "alt": "Hai bàn tay tạo hình trái tim trước bầu trời chiều và các tòa nhà.",
+      "caption": "Chạm tay thành một trái tim giữa trời chiều.",
+      "width": 1920,
+      "height": 2560,
+      "variants": [
+        {
+          "src": "photo-variants/0e255e8f2b98ca85-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/0e255e8f2b98ca85-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/0e255e8f2b98ca85-640.webp",
+          "width": 640,
+          "height": 853,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/0e255e8f2b98ca85-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/0e255e8f2b98ca85-1600.webp",
+          "width": 1600,
+          "height": 2133,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z3917787659545_e21b31fc7ae69313f386de4ac9c0c8b4.jpg",
+      "width": 1918,
+      "height": 2558,
+      "variants": [
+        {
+          "src": "photo-variants/f06135a6757b7fbe-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f06135a6757b7fbe-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f06135a6757b7fbe-640.webp",
+          "width": 640,
+          "height": 854,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f06135a6757b7fbe-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/f06135a6757b7fbe-1600.webp",
+          "width": 1600,
+          "height": 2134,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z3917787706381_a7fb5754247010ed9b78c872d79383ef.jpg",
+      "width": 2568,
+      "height": 1926,
+      "variants": [
+        {
+          "src": "photo-variants/7590459378582059-96.webp",
+          "width": 96,
+          "height": 72,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/7590459378582059-320.webp",
+          "width": 320,
+          "height": 240,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/7590459378582059-640.webp",
+          "width": 640,
+          "height": 480,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/7590459378582059-960.webp",
+          "width": 960,
+          "height": 720,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/7590459378582059-1600.webp",
+          "width": 1600,
+          "height": 1200,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z4120324532786_0f727d6d8f0bad8811a8f8ab1708a30a.jpg",
+      "width": 1920,
+      "height": 2560,
+      "variants": [
+        {
+          "src": "photo-variants/9f8bd0c7947e3b9c-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/9f8bd0c7947e3b9c-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/9f8bd0c7947e3b9c-640.webp",
+          "width": 640,
+          "height": 853,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/9f8bd0c7947e3b9c-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/9f8bd0c7947e3b9c-1600.webp",
+          "width": 1600,
+          "height": 2133,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z5302861987813_341794b4b405ace6284511b334a73c88.jpg",
+      "width": 1920,
+      "height": 2560,
+      "variants": [
+        {
+          "src": "photo-variants/b95a740ea4cb4c8c-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/b95a740ea4cb4c8c-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/b95a740ea4cb4c8c-640.webp",
+          "width": 640,
+          "height": 853,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/b95a740ea4cb4c8c-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/b95a740ea4cb4c8c-1600.webp",
+          "width": 1600,
+          "height": 2133,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "src": "photos/z6219576654138_94d63903f4a99a0bbfc583dcc4406b1d.jpg",
+      "alt": "Ngọc Lành mặc váy đen đứng giữa không gian trang trí nhiều hoa.",
+      "caption": "Một khoảnh khắc giữa khu vườn hoa.",
+      "width": 1920,
+      "height": 2560,
+      "variants": [
+        {
+          "src": "photo-variants/e2717437f8149ee2-96.webp",
+          "width": 96,
+          "height": 128,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/e2717437f8149ee2-320.webp",
+          "width": 320,
+          "height": 427,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/e2717437f8149ee2-640.webp",
+          "width": 640,
+          "height": 853,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/e2717437f8149ee2-960.webp",
+          "width": 960,
+          "height": 1280,
+          "type": "image/webp"
+        },
+        {
+          "src": "photo-variants/e2717437f8149ee2-1600.webp",
+          "width": 1600,
+          "height": 2133,
+          "type": "image/webp"
+        }
+      ]
     }
   ]
 }

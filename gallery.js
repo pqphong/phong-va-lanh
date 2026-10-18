@@ -8,13 +8,13 @@
     && CSS.supports("transform-style", "preserve-3d") && CSS.supports("perspective", "600px");
   const galleries = new Map();
   const broken = new Set();
-  const delay = 6000;
+  const delay = 3000;
   const turn = Math.PI * 2;
   let selected;
-  let paused = true;
+  let paused = false;
   let motion = true;
   let suspended = false;
-  try { paused = localStorage.getItem("phong-lanh-slideshow") !== "on"; } catch { /* Photos do not require browser storage. */ }
+  try { paused = localStorage.getItem("phong-lanh-slideshow") === "off"; } catch { /* Photos do not require browser storage. */ }
 
   function photoSource(source, embedded) {
     if (typeof source !== "string") return null;
@@ -25,6 +25,100 @@
       return !name.startsWith(".") && !/[/\\\u0000-\u001f\u007f]/.test(name)
         && /\.(?:jpe?g|png|webp|avif)$/i.test(name) && source === `photos/${encodeURIComponent(name)}` ? source : null;
     } catch { return null; }
+  }
+
+  function cleanText(value, limit) {
+    if (typeof value !== "string") return undefined;
+    const text = value.trim();
+    return text && text.length <= limit && !/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(text) ? text : undefined;
+  }
+
+  function variantSource(source, width) {
+    if (typeof source !== "string") return null;
+    const match = source.match(/^photo-variants\/[a-f0-9]{16}-([1-9]\d*)\.webp$/);
+    return match && Number(match[1]) === width ? source : null;
+  }
+
+  function normalizePhoto(photo, embedded = false) {
+    const src = photoSource(photo?.src, embedded);
+    if (!src) return null;
+    const record = { src };
+    for (const [field, limit] of Object.entries({ alt: 500, caption: 1000, date: 80, location: 200 })) {
+      const value = cleanText(photo[field], limit);
+      if (value) record[field] = value;
+    }
+    if (Number.isInteger(photo.width) && Number.isInteger(photo.height)
+      && photo.width > 0 && photo.height > 0 && photo.width <= 100000 && photo.height <= 100000) {
+      record.width = photo.width;
+      record.height = photo.height;
+    }
+    if (!embedded && Array.isArray(photo.variants)) {
+      const sources = new Set();
+      record.variants = photo.variants.map((variant) => {
+        if (!Number.isInteger(variant?.width) || !Number.isInteger(variant?.height)
+          || variant.width < 1 || variant.height < 1 || variant.width > 100000 || variant.height > 100000
+          || variant.type !== "image/webp") return null;
+        const source = variantSource(variant.src, variant.width);
+        if (!source || sources.has(source)) return null;
+        sources.add(source);
+        return { src: source, width: variant.width, height: variant.height, type: "image/webp" };
+      }).filter(Boolean).sort((left, right) => left.width - right.width).slice(0, 12);
+      if (!record.variants.length) delete record.variants;
+    }
+    return record;
+  }
+
+  const roleSizes = {
+    thumbnail: "54px",
+    card: "(max-width: 680px) 60vw, 300px",
+    gallery: "(max-width: 680px) 60vw, 480px",
+    lightbox: "(max-width: 680px) calc(100vw - 32px), 920px",
+  };
+  function roleVariants(record, role) {
+    const variants = record?.variants || [];
+    if (role === "thumbnail") return variants.filter((variant) => variant.width <= 320);
+    if (role === "card") return variants.filter((variant) => variant.width <= 960);
+    return variants;
+  }
+
+  function applyPhotoSource(image, record, role = "gallery", originalOnly = false) {
+    const variants = originalOnly ? [] : roleVariants(record, role);
+    image.dataset ||= {};
+    image.dataset.photoSource = record.src;
+    image.dataset.photoRole = role;
+    delete image.dataset.originalFallback;
+    if (variants.length) {
+      image.srcset = variants.map((variant) => `${variant.src} ${variant.width}w`).join(", ");
+      image.sizes = roleSizes[role];
+      image.src = record.src;
+    } else {
+      image.srcset = "";
+      image.sizes = "";
+      image.removeAttribute?.("srcset");
+      image.removeAttribute?.("sizes");
+      image.src = record.src;
+    }
+    if (record.width && record.height) {
+      image.width = record.width;
+      image.height = record.height;
+    }
+    return image;
+  }
+
+  function retryOriginal(image, record) {
+    if (!record?.variants?.length || image.dataset?.originalFallback === "true") return false;
+    image.dataset.originalFallback = "true";
+    image.srcset = "";
+    image.sizes = "";
+    image.removeAttribute?.("srcset");
+    image.removeAttribute?.("sizes");
+    image.src = record.src;
+    return true;
+  }
+
+  function displayDate(value) {
+    const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return match ? `${match[3]}/${match[2]}/${match[1]}` : value;
   }
 
   const library = (async () => {
@@ -42,7 +136,12 @@
         } finally { clearTimeout(timeout); }
       }
       if (!Array.isArray(data?.photos)) throw new Error("Invalid album");
-      return [...new Set(data.photos.map((photo) => photoSource(photo?.src, Boolean(embedded))).filter(Boolean))];
+      const records = new Map();
+      for (const photo of data.photos) {
+        const record = normalizePhoto(photo, Boolean(embedded));
+        if (record && !records.has(record.src)) records.set(record.src, record);
+      }
+      return [...records.values()];
     } catch { return null; }
   })();
 
@@ -144,6 +243,7 @@
           .map((name) => [name, container.getAttribute(name)]),
       };
       this.photos = [];
+      this.records = new Map();
       this.cards = new Map();
       this.index = 0;
       this.onScreen = true;
@@ -167,10 +267,15 @@
       this.strip = element("div", "gallery-strip");
       this.strip.setAttribute("role", "group");
       this.strip.setAttribute("aria-label", "Chọn ảnh trong album");
+      this.story = element("div", "gallery-story");
+      this.storyCaption = element("p", "gallery-story-caption");
+      this.storyMeta = element("p", "gallery-story-meta");
+      this.story.append(this.storyCaption, this.storyMeta);
+      this.story.hidden = true;
       this.note = element("p", "gallery-note");
       this.announcement = element("p", "sr-only");
       this.announcement.setAttribute("role", "status");
-      this.panel.replaceChildren(controls, this.strip, this.note, this.announcement);
+      this.panel.replaceChildren(controls, this.strip, this.story, this.note, this.announcement);
       this.ring = element("div", "gallery-ring");
       this.ring.hidden = true;
       this.viewer.append(this.ring);
@@ -253,14 +358,33 @@
         this.resizeObserver.observe(this.viewer);
       } else window.addEventListener("resize", () => { this.cancelDrag(); this.renderRing(); this.sync(); }, options);
       this.sync();
-      library.then((photos) => {
+      library.then((records) => {
         if (!this.alive) return;
-        const fallback = photoSource(this.image.getAttribute("src"), Boolean(document.getElementById("photo-library")));
-        this.photos = (photos ?? (fallback ? [fallback] : [])).filter((source) => !broken.has(source));
+        const embedded = Boolean(document.getElementById("photo-library"));
+        const fallbackSource = photoSource(this.image.getAttribute("src"), embedded);
+        const fallback = fallbackSource ? normalizePhoto({ src: fallbackSource, alt: this.image.alt }, embedded) : null;
+        for (const record of records ?? (fallback ? [fallback] : [])) this.records.set(record.src, record);
+        this.photos = [...this.records.keys()].filter((source) => !broken.has(source));
         this.drawPhotos();
         const remembered = this.photos.indexOf(selected);
         this.show(remembered < 0 ? 0 : remembered, "initial");
       });
+    }
+
+    record(source) {
+      return this.records?.get(source) || { src: source };
+    }
+
+    updateStory(record = this.record(this.currentSource)) {
+      const details = [record.date ? displayDate(record.date) : "", record.location || ""].filter(Boolean);
+      this.storyCaption.textContent = record.caption || "";
+      this.storyMeta.textContent = details.join(" · ");
+      this.story.hidden = !record.caption && !details.length;
+      if (this.lightboxCaption) {
+        this.lightboxCaption.textContent = record.caption || "";
+        this.lightboxMeta.textContent = details.join(" · ");
+        this.lightboxStory.hidden = !record.caption && !details.length;
+      }
     }
 
     canMove() {
@@ -314,7 +438,7 @@
       this.note.textContent = instruction + (this.photos.length === 1 ? "Một khoảnh khắc của hai đứa."
         : disabled ? "Tự chuyển đã tắt theo cài đặt chuyển động."
           : paused ? "Đang dừng · Tự chạy khi bạn muốn."
-            : playing ? "Tự chuyển mỗi 6 giây."
+            : playing ? "Tự chuyển mỗi 3 giây."
               : "Tạm dừng khi tương tác, mở hộp thoại hoặc ra ngoài màn hình.");
       if (playing) this.timer = setTimeout(() => {
         // Recheck synchronous dialog/lifecycle changes before starting a request.
@@ -344,8 +468,10 @@
           preview.alt = "";
           preview.loading = "lazy";
           preview.decoding = "async";
-          preview.addEventListener("error", () => { preview.hidden = true; }, { once: true });
-          preview.src = source;
+          preview.addEventListener("error", () => {
+            if (!retryOriginal(preview, this.record(source))) preview.hidden = true;
+          });
+          applyPhotoSource(preview, this.record(source), "card");
           card.preview = preview;
           card.badge = element("span", "gallery-card-number");
           card.badge.setAttribute("aria-hidden", "true");
@@ -362,8 +488,10 @@
         image.alt = "";
         image.loading = "lazy";
         image.decoding = "async";
-        image.addEventListener("error", () => { image.hidden = true; }, { once: true });
-        image.src = source;
+        image.addEventListener("error", () => {
+          if (!retryOriginal(image, this.record(source))) image.hidden = true;
+        });
+        applyPhotoSource(image, this.record(source), "thumbnail");
         thumbnail.append(image);
         thumbnails.append(thumbnail);
       });
@@ -379,7 +507,10 @@
       const position = `Ảnh ${this.index + 1} trên ${this.photos.length}`;
       this.position.textContent = `${String(this.index + 1).padStart(2, "0")} / ${String(this.photos.length).padStart(2, "0")}`;
       this.position.setAttribute("aria-label", position);
-      this.image.alt = `${position} trong album của Quốc Phong và Ngọc Lành`;
+      const record = this.record(this.currentSource);
+      const alt = record.alt || `${position} trong album của Quốc Phong và Ngọc Lành`;
+      this.image.alt = alt;
+      this.updateStory(record);
       this.container.dataset.galleryCurrent = String(this.index + 1);
       for (const thumbnail of this.strip.children) {
         thumbnail.setAttribute("aria-current", String(thumbnail.dataset.photoSource === this.currentSource));
@@ -462,11 +593,12 @@
       });
     }
 
-    load(source) {
+    load(source, role = "gallery") {
       this.cancelLoad?.();
       return new Promise((resolve) => {
         const image = new Image();
         image.decoding = "async";
+        const record = this.record(source);
         let finished = false;
         const finish = (value) => {
           if (finished) return;
@@ -480,8 +612,8 @@
         const timeout = setTimeout(() => finish(null), 10000);
         this.cancelLoad = cancel;
         image.onload = () => finish(image.naturalWidth && image.naturalHeight ? image : null);
-        image.onerror = () => finish(null);
-        image.src = source;
+        image.onerror = () => { if (!retryOriginal(image, record)) finish(null); };
+        applyPhotoSource(image, record, role);
       });
     }
 
@@ -550,6 +682,9 @@
         this.empty.hidden = false;
         this.ready = false;
         this.currentSource = this.requestedSource = undefined;
+        if (this.storyCaption) this.storyCaption.textContent = "";
+        if (this.storyMeta) this.storyMeta.textContent = "";
+        if (this.story) this.story.hidden = true;
         delete this.container.dataset.galleryCurrent;
         if (this.lightboxOpen) this.closeLightbox();
         this.sync();
@@ -565,9 +700,12 @@
       // Only a fully loaded, non-stale source becomes the committed photograph.
       // Keep the original data-gallery-image node stable across navigation too.
       if (changed) {
-        this.image.src = source;
-        this.image.width = loaded.naturalWidth;
-        this.image.height = loaded.naturalHeight;
+        const record = this.record(source);
+        applyPhotoSource(this.image, record, "gallery", loaded.dataset?.originalFallback === "true");
+        if (!record.width || !record.height) {
+          this.image.width = loaded.naturalWidth;
+          this.image.height = loaded.naturalHeight;
+        }
       }
       this.image.classList.add("gallery-card-image");
       card.prepend(this.image);
@@ -647,13 +785,18 @@
       this.lightboxClose = button("gallery-lightbox-close", "Đóng ảnh phóng to", "m6 6 12 12M6 18 18 6");
       heading.append(this.lightboxClose);
       this.lightboxFigure = element("div", "gallery-lightbox-figure");
+      this.lightboxStory = element("div", "gallery-lightbox-story");
+      this.lightboxCaption = element("p", "gallery-lightbox-caption");
+      this.lightboxMeta = element("p", "gallery-lightbox-meta");
+      this.lightboxStory.append(this.lightboxCaption, this.lightboxMeta);
+      this.lightboxStory.hidden = true;
       const controls = element("div", "gallery-lightbox-controls");
       this.lightboxPrevious = button("gallery-lightbox-previous", "Ảnh trước", "m15 6-6 6 6 6");
       this.lightboxNext = button("gallery-lightbox-next", "Ảnh tiếp theo", "m9 6 6 6-6 6");
       this.lightboxPosition = element("span", "gallery-lightbox-position");
       this.lightboxPosition.setAttribute("role", "status");
       controls.append(this.lightboxPrevious, this.lightboxPosition, this.lightboxNext);
-      this.lightbox.append(heading, this.lightboxFigure, controls);
+      this.lightbox.append(heading, this.lightboxFigure, this.lightboxStory, controls);
       this.lightboxShade = element("div", "gallery-lightbox-shade");
       this.lightboxShade.hidden = true;
       this.lightboxShade.setAttribute("aria-hidden", "true");
@@ -686,15 +829,19 @@
 
     updateLightbox() {
       if (!this.lightboxOpen || !this.lightbox.hasAttribute("open") || !this.ready) return;
-      if (this.lightboxImage?.getAttribute("src") !== this.currentSource) {
-        const image = this.image.cloneNode();
-        image.removeAttribute("data-gallery-image");
+      const record = this.record(this.currentSource);
+      if (this.lightboxImage?.dataset.photoSource !== this.currentSource) {
+        const image = new Image();
         image.className = "gallery-lightbox-image";
+        image.decoding = "async";
+        image.addEventListener("error", () => { retryOriginal(image, record); });
+        applyPhotoSource(image, record, "lightbox");
         image.hidden = false;
         this.lightboxFigure.replaceChildren(image);
         this.lightboxImage = image;
       }
-      this.lightboxImage.alt = this.image.alt;
+      this.lightboxImage.alt = record.alt || this.image.alt;
+      this.updateStory(record);
       this.lightboxPosition.textContent = `Ảnh ${this.index + 1} trên ${this.photos.length}`;
     }
 
@@ -806,6 +953,9 @@
       // open. Only the current committed photograph will be cloned next time.
       this.lightboxFigure.replaceChildren();
       this.lightboxImage = null;
+      if (this.lightboxCaption) this.lightboxCaption.textContent = "";
+      if (this.lightboxMeta) this.lightboxMeta.textContent = "";
+      if (this.lightboxStory) this.lightboxStory.hidden = true;
       syncAll();
     }
 
