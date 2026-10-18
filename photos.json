@@ -3,7 +3,6 @@
     {
       "src": "photos/couple.jpg",
       "alt": "Quốc Phong và Ngọc Lành chụp ảnh cùng nhau trước một công trình nhiều màu sắc vào buổi tối.",
-      "caption": "Hai đứa trong một khung hình đầy ánh sáng.",
       "width": 2048,
       "height": 1536,
       "variants": [
@@ -42,7 +41,6 @@
     {
       "src": "photos/368069696_689975769914003_7402499234028940142_n.jpg",
       "alt": "Ngọc Lành mặc áo dài đỏ đứng bên cổng hoa màu hồng.",
-      "caption": "Một tà áo đỏ giữa những sắc hoa dịu dàng.",
       "width": 1536,
       "height": 2048,
       "variants": [
@@ -179,8 +177,6 @@
     },
     {
       "src": "photos/z3519046914445_2703db441c1afeb9bf84dd614ce2a78a.jpg",
-      "alt": "Chân dung Ngọc Lành trong trang phục màu đen.",
-      "caption": "Một nụ cười thật gần.",
       "width": 956,
       "height": 959,
       "variants": [
@@ -250,7 +246,6 @@
     {
       "src": "photos/z3917787500353_00fa72c4bfa650984525af6496bd65f8.jpg",
       "alt": "Hai bàn tay tạo hình trái tim trước bầu trời chiều và các tòa nhà.",
-      "caption": "Chạm tay thành một trái tim giữa trời chiều.",
       "width": 1920,
       "height": 2560,
       "variants": [
@@ -437,7 +432,6 @@
     {
       "src": "photos/z6219576654138_94d63903f4a99a0bbfc583dcc4406b1d.jpg",
       "alt": "Ngọc Lành mặc váy đen đứng giữa không gian trang trí nhiều hoa.",
-      "caption": "Một khoảnh khắc giữa khu vườn hoa.",
       "width": 1920,
       "height": 2560,
       "variants": [
